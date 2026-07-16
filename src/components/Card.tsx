@@ -4,7 +4,7 @@ interface CardProps {
   icon: ReactNode;
   title: string;
   description: string;
-  number?: string; // default "01" - agar har card ka apna number chahiye to yahan se pass kar dein
+  number?: string;
 }
 
 export default function Card({

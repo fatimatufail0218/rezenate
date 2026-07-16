@@ -37,8 +37,7 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
     return () => cancelAnimationFrame(raf);
   }, [phase]);
 
-  // Jaise hi "expanding" shuru ho: box ko pehle chhota+visible dikhayein (1 frame),
-  // phir agle frame mein "expanded" set karein
+  
   useEffect(() => {
     if (phase !== "expanding") return;
 
@@ -51,7 +50,6 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
     return () => cancelAnimationFrame(raf1);
   }, [phase]);
 
-  // Expand animation khatam hote hi overlay hata dein
   useEffect(() => {
     if (phase !== "expanding") return;
     const timer = setTimeout(() => setPhase("done"), EXPAND_DURATION);
@@ -65,7 +63,7 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
 
   return (
     <LoadingContext.Provider value={phase === "done"}>
-      {/* Asal site - hamesha render hoti hai, overlay ke peechay chhupi rehti hai */}
+      
       {children}
 
       {phase !== "done" && (
@@ -76,15 +74,6 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
               src="/load-bg.png"
               alt=""
               className="absolute inset-0 h-full w-full object-cover"
-            />
-
-            {/* Refraction pattern */}
-            <div
-              className="absolute inset-0 opacity-30 mix-blend-overlay"
-              style={{
-                backgroundImage:
-                  "repeating-linear-gradient(45deg, rgba(255,255,255,0.5) 0px, rgba(255,255,255,0.5) 1px, transparent 1px, transparent 18px)",
-              }}
             />
           </div>
 
