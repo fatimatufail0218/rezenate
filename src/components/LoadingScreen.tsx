@@ -7,7 +7,7 @@ export const useLoadingComplete = () => useContext(LoadingContext);
 
 // Timing constants - inhi numbers ko tune karein
 const LOAD_DURATION = 2900;   // ms - 0% se 100% tak counter AUR logo-reveal ki total duration
-const EXPAND_DURATION = 1100;  // ms - box ke poori screen tak phailne ki duration
+const EXPAND_DURATION = 1200;  // ms - box ke poori screen tak phailne ki duration
 
 export default function LoadingScreen({ children }: { children: React.ReactNode }) {
   const [percent, setPercent] = useState(0);
