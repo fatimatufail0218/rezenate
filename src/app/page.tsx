@@ -214,9 +214,9 @@ export default function Home() {
 
         <div className="md:hidden flex flex-col items-center gap-3 mt-1 px-2">
 
-          <Card icon={<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 76 76" fill="none">
-            <rect width="70" height="70" rx="29.8571" fill="#9564F4" fillOpacity="0.12" />
-            <g transform="translate(-1.7, 0)">
+          <Card icon={<svg xmlns="http://www.w3.org/2000/svg" width="70" height="76" viewBox="0 0 76 76" fill="none">
+            <rect width="70" height="73" rx="29.8571" fill="#9564F4" fillOpacity="0.12" />
+            <g transform="translate(-1.8, 3)">
               <path
                 d="M38 49.7143L35.7286 47.6443C27.7857 40.4114 22.4286 35.5386 22.4286 29.5814C22.4286 24.7086 26.2571 20.8571 31.1 20.8571C33.8429 20.8571 36.4714 22.1257 38 24.1286C39.5286 22.1257 42.1571 20.8571 44.9 20.8571C49.7429 20.8571 53.5714 24.7086 53.5714 29.5814C53.5714 35.5386 48.2143 40.4114 40.2714 47.6443L38 49.7143Z"
                 stroke="#9564F4"

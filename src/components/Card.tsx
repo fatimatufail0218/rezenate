@@ -42,7 +42,7 @@ export default function Card({
       "
     >
       {/* Top-right corner number */}
-      <span className="absolute top-4 right-6 text-[15px] md:text-[18px] font-bold text-[#9564F4] font-[var(--font-plus-jakarta)]">
+      <span className="absolute top-4 right-7 text-[15px] md:text-[18px] font-bold text-[#9564F4] font-[var(--font-plus-jakarta)]">
         {number}
       </span>
 
@@ -57,7 +57,7 @@ export default function Card({
           {title}
         </h3>
 
-        <p className="mt-2 text-[14px] md:text-[18px] leading-6 text-[#111827] font-[family-name:var(--font-mulish)] tracking-normal">
+        <p className="mt-2 text-[14px] md:text-[18px] leading-4 md:leading-6 text-[#111827] font-[family-name:var(--font-mulish)] tracking-normal">
           {description}
         </p>
       </div>
