@@ -7,10 +7,10 @@ import Button from "./Button";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
-  { href: "/philosophy", label: "Philosophy" },
-  { href: "/how-we-partner", label: "How We Partner" },
-  { href: "/founders", label: "Founders" },
-  { href: "/contact", label: "Contact" },
+  { href: "#philosophy", label: "Philosophy" },
+  { href: "#how-we-partner", label: "How We Partner" },
+  { href: "#founders", label: "Founders" },
+  { href: "#contact", label: "Contact" },
 ];
 
 const Navbar = () => {

@@ -17,10 +17,12 @@ export default function Card({
     <div
       className="
         w-[95vw]
-        h-[120px]
-        md:w-[680px]
-        md:h-[130px]
-        
+        h-auto
+        py-2
+        md:py-5
+        md:w-[650px]
+        xl:w-[680px]
+        xl:h-[130px]
         rounded-[22px]
         border
         border-[#DEE6E9]
@@ -51,7 +53,7 @@ export default function Card({
 
       {/* Right Content */}
       <div className="flex flex-col justify-center">
-        <h3 className=" text-[20px] md:text-[26px] font-medium text-[#111827] font-[family-name:var(--font-boldonse)]">
+        <h3 className=" text-[16px] md:text-[26px] font-medium text-[#111827] font-[family-name:var(--font-boldonse)]">
           {title}
         </h3>
 

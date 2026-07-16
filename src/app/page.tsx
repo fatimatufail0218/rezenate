@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import Card from "@/components/Card"
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
@@ -9,22 +12,29 @@ export default function Home() {
   const ARROW_OFFSET_Y = 10; // arrow ko center se neeche le jane ke liye
 
 
-  // circle-svg ko control krny k liye
-  const BASE_TOP = 380;
+//  --------------------------cards ki animation k liye --------------------------
+  const [cardsVisible, setCardsVisible] = useState(false);
+  const cardsWrapperRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setCardsVisible(true);
+          observer.disconnect(); // ek dafa trigger hone k baad observer band - upar/neechay scroll karne par dobara animate nahi hoga
+        }
+      },
+      { threshold: 0.50 } // section ka 25% hissa screen py aate hi trigger ho jaye
+    );
 
+    if (cardsWrapperRef.current) {
+      observer.observe(cardsWrapperRef.current);
+    }
 
-  // card ka icon 
-  const cardIcon = (
-    <svg xmlns="http://www.w3.org/2000/svg" width="76" height="76" viewBox="0 0 76 76" fill="none">
-      <rect width="76" height="76" rx="29.8571" fill="#9564F4" fillOpacity="0.12" />
-      <path d="M24.4297 27.1427V48.857" stroke="#9564F4" strokeWidth="2.71429" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M24.4297 32.5713H48.8583C49.5781 32.5713 50.2685 32.8573 50.7775 33.3663C51.2866 33.8753 51.5725 34.5657 51.5725 35.2856V48.857" stroke="#9564F4" strokeWidth="2.71429" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M24.4297 44.7856H51.5725" stroke="#9564F4" strokeWidth="2.71429" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M29.8574 32.5713V44.7856" stroke="#9564F4" strokeWidth="2.71429" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-
+    return () => observer.disconnect(); // cleanup - component unmount hone par observer hata dena
+  }, []);
+  
+  // -----------------------------------------------------------------------------------------------------------------------------------------------------
   return (
     <div >
       {/* ---------------------section 1----------------------------- */}
@@ -43,7 +53,6 @@ export default function Home() {
           src="/hero-overlay.svg"
           alt="Hero Overlay"
           width={2270}
-          
           height={864}
           priority
           className="
@@ -51,13 +60,12 @@ export default function Home() {
           left-1/2
           top-[490px]
           md:top-[500px]
-          lg:top-[420px]
-          xl:top-[450px]
+          lg:top-[400px]
+          xl:top-[380px]
           2xl:top-[300px]
           -translate-x-1/2
           w-[100%]
-          h-auto
-          
+          h-auto  
           max-w-none
           -z-10
     "
@@ -80,7 +88,7 @@ export default function Home() {
         xl:text-[44px]
         lg:leading-[182%]
         anim-fade-up"
-        style={{ animationDelay: "200ms" }}>
+              style={{ animationDelay: "200ms" }}>
               Every leader influences a culture long <br /> before they change a
               strategy.
             </h1>
@@ -152,9 +160,7 @@ export default function Home() {
           </div>
         </div>
         {/* -------------------------------------------section 1 bottom gradient--------------------------------------- */}
-          
-        {/* <div className="pointer-events-none absolute bottom-0 left-0 z-20 h-[70px] md:h-[100px] lg:h-[120px] xl:h-[220px] 2xl:h-[300px] w-full bg-gradient-to-b from-transparent via-white/40 lg:via-white/70 to-white "  /> */}
-         
+
         <Image
           src="/blur.svg"
           alt="Blur Overlay"
@@ -168,7 +174,7 @@ export default function Home() {
             md:top-[690px]
             lg:top-[640px]
             xl:top-[690px]
-            2xl:top-[740px]
+            2xl:top-[655px]
             w-full
             h-auto
             z-20
@@ -180,63 +186,222 @@ export default function Home() {
 
 
       {/* ----------------------------------section 2------------------------------------- */}
-      <section id="2" className="max-w-full bg-white pt-[70px] xl:pt-[170px] pb-10 xl:pb-60 relative overflow-hidden">
+      <section id="2" className="max-w-full bg-white pt-[60px] xl:pt-[170px] pb-10 xl:pb-60 relative overflow-hidden">
 
-        <div className="absolute translate-y-200 md:translate-y-160 xl:translate-y-20" >
+        {/* Blur back */}
+        <div className="absolute translate-y-150 xl:translate-y-20 md:scale-[100%] lg:scale-[100%] xl:scale-[100%] 2xl:scale-100 origin-top">
           <img src="/blur-back.svg" alt="" />
         </div>
 
-        {/* Heading  */}
-        
-          <div className="mx-auto lg:w-[860px]">
-            <h1 className="
-        mx-auto
-        text-center
-        font-[family-name:var(--font-boldonse)]
-        text-black
-        text-[20px]
-        leading-[160%]
-        font-normal
-        md:text-[32px]
-        lg:text-[40px]
-        lg:leading-[130%]">
-              The way we work should reflect the way we live.
-            </h1>
-          </div>
-        
+        {/* Heading */}
+        <div className="mx-auto md:w-[650px] lg:w-[860px]">
+          <h1 className="mx-auto text-center font-[family-name:var(--font-boldonse)] text-black text-[20px] leading-[160%] font-normal md:text-[28px] lg:text-[40px] lg:leading-[130%]">
+            The way we work should reflect the way we live.
+          </h1>
+        </div>
 
-        {/* ---------- Circle + Cards ---------- */}
+        {/* ---------- Mobile layout ---------- */}
 
-        <div className="relative mx-auto max-w-full -mt-[290px] md:-mt-[210px] xl:-mt-[190px]">
-              {/* Circle */}
-              <img
-                src="/circle.svg"
-                alt=""
-                className="relative max-w-none ml-1 xl:ml-10 2xl:ml-[100px] transition-transform duration-500 ease-out group-hover:scale-102"
+        <div className="block md:hidden">
+        <div>
+          {/* Circle */}
+            <img
+              src="/circle.svg"
+              alt=""
+              className="top-0 w-[680px]"
+            />
+        </div>
+
+        <div className="md:hidden flex flex-col items-center gap-3 mt-1 px-2">
+
+          <Card icon={<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 76 76" fill="none">
+            <rect width="70" height="70" rx="29.8571" fill="#9564F4" fillOpacity="0.12" />
+            <g transform="translate(-1.7, 0)">
+              <path
+                d="M38 49.7143L35.7286 47.6443C27.7857 40.4114 22.4286 35.5386 22.4286 29.5814C22.4286 24.7086 26.2571 20.8571 31.1 20.8571C33.8429 20.8571 36.4714 22.1257 38 24.1286C39.5286 22.1257 42.1571 20.8571 44.9 20.8571C49.7429 20.8571 53.5714 24.7086 53.5714 29.5814C53.5714 35.5386 48.2143 40.4114 40.2714 47.6443L38 49.7143Z"
+                stroke="#9564F4"
+                strokeWidth="2.71429"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
-            
+            </g>
+          </svg>}
+            title="Meraki"
+            description="We bring heart to everything we do." number="01" />
+
+          <Card icon={<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 76 76" fill="none">
+            <rect width="70" height="70" rx="29.8571" fill="#9564F4" fillOpacity="0.12" />
+            <g transform="translate(-1.7, -5)">
+              <path
+                d="M38 23.7143C31.1857 23.7143 25.6571 29.2429 25.6571 36.0571C25.6571 40.4629 27.9571 44.3229 31.4286 46.5143V50.8571C31.4286 51.6086 32.0343 52.2143 32.7857 52.2143H43.2143C43.9657 52.2143 44.5714 51.6086 44.5714 50.8571V46.5143C48.0429 44.3229 50.3429 40.4629 50.3429 36.0571C50.3429 29.2429 44.8143 23.7143 38 23.7143Z"
+                stroke="#9564F4"
+                strokeWidth="2.71429"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path d="M32.7857 55.9286H43.2143" stroke="#9564F4" strokeWidth="2.71429" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M34.5714 59.5714H41.4286" stroke="#9564F4" strokeWidth="2.71429" strokeLinecap="round" strokeLinejoin="round" />
+            </g>
+          </svg>}
+            title="Wisdom"
+            description="We make thoughtful decisions." number="02" />
+          <Card icon={<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 76 76" fill="none">
+            <rect width="70" height="70" rx="29.8571" fill="#9564F4" fillOpacity="0.12" />
+            <g transform="translate(-1.7, -5)">
+            <path d="M38 26.8571V51.1429" stroke="#9564F4" strokeWidth="2.71429" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M27.4286 31.1429H48.5714" stroke="#9564F4" strokeWidth="2.71429" strokeLinecap="round" strokeLinejoin="round" />
+            <path
+              d="M27.4286 31.1429L23.1429 39.7143C23.1429 42.1543 25.0057 44.1429 27.4286 44.1429C29.8514 44.1429 31.7143 42.1543 31.7143 39.7143L27.4286 31.1429Z"
+              stroke="#9564F4"
+              strokeWidth="2.71429"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M48.5714 31.1429L44.2857 39.7143C44.2857 42.1543 46.1486 44.1429 48.5714 44.1429C50.9943 44.1429 52.8571 42.1543 52.8571 39.7143L48.5714 31.1429Z"
+              stroke="#9564F4"
+              strokeWidth="2.71429"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path d="M32.7143 51.1429H43.2857" stroke="#9564F4" strokeWidth="2.71429" strokeLinecap="round" strokeLinejoin="round" />
+            </g>
+          </svg>}
+            title="Upekkha"
+            description="We hold space with calm and balance." number="03" />
+          <Card icon={<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 76 76" fill="none">
+            <rect width="70" height="70" rx="29.8571" fill="#9564F4" fillOpacity="0.12" />
+            <g transform="translate(-1.7, -4)">
+            <path
+              d="M22.4286 38H29.2857L33.5714 27.4286L42.1429 48.5714L46.4286 38H53.2857"
+              stroke="#9564F4"
+              strokeWidth="2.71429"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            </g>
+          </svg>}
+            title="Cadence"
+            description="We move with rhythm and intention." number="04" />
+        </div>
+        </div>
 
 
-          {/* ---------- Cards ---------- */}
-          <div className="absolute left-[2.5%] md:left-[20px] lg:left-[40px] top-[380px] xl:left-[705px] 2xl:left-[980px]">
-            <Card icon={cardIcon} title="Meraki" description="We bring heart to everything we do." number="01" />
+        {/* ---------- Tablet to Desktop layout ---------- */}
+        <div
+        ref={cardsWrapperRef}
+        className="
+      hidden md:block relative mx-auto
+      -mt-[210px] xl:-mt-[190px]
+      md:w-[768px] md:h-[610px]
+      lg:w-[1030px] lg:h-[807px]
+      xl:w-[1279px] xl:h-[878px]
+      2xl:w-[1660px] 2xl:h-[1140px]
+    "
+        >
+          <div
+            className="
+        absolute top-30 left-0 origin-top-left w-[1660px] h-[1140px]
+        md:scale-[0.4627]
+        lg:scale-[0.6205]
+        xl:scale-[0.7705]
+        2xl:scale-100
+      "
+          >
+            {/* Circle */}
+            <img
+              src="/circle.svg"
+              alt=""
+              className="absolute left-[100px] top-0 w-[1140px] h-[1140px]"
+            />
+
+            {/* Cards - reference (2xl) fixed positions, ab kabhi nahi badalte */}
+            <div className={`absolute left-[980px] top-[380px] transition-all duration-700 ease-out delay-[0ms] ${
+                            cardsVisible ? "translate-x-0 opacity-100" : "translate-x-[150px] opacity-0"
+                            }`}>
+              <Card icon={<svg xmlns="http://www.w3.org/2000/svg" width="76" height="76" viewBox="0 0 76 76" fill="none">
+                <rect width="76" height="76" rx="29.8571" fill="#9564F4" fillOpacity="0.12" />
+                <g transform="translate(0, 3)">
+                  <path
+                    d="M38 49.7143L35.7286 47.6443C27.7857 40.4114 22.4286 35.5386 22.4286 29.5814C22.4286 24.7086 26.2571 20.8571 31.1 20.8571C33.8429 20.8571 36.4714 22.1257 38 24.1286C39.5286 22.1257 42.1571 20.8571 44.9 20.8571C49.7429 20.8571 53.5714 24.7086 53.5714 29.5814C53.5714 35.5386 48.2143 40.4114 40.2714 47.6443L38 49.7143Z"
+                    stroke="#9564F4"
+                    strokeWidth="2.71429"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </g>
+              </svg>}
+                title="Meraki"
+                description="We bring heart to everything we do." number="01" />
+            </div>
+
+            <div className={`absolute left-[905px] top-[541px] transition-all duration-700 ease-out delay-[200ms] ${
+                              cardsVisible ? "translate-x-0 opacity-100" : "translate-x-[150px] opacity-0"
+                            }`}>
+              <Card icon={<svg xmlns="http://www.w3.org/2000/svg" width="76" height="76" viewBox="0 0 76 76" fill="none">
+                <rect width="76" height="76" rx="29.8571" fill="#9564F4" fillOpacity="0.12" />
+                <g transform="translate(0, -3)">
+                  <path
+                    d="M38 23.7143C31.1857 23.7143 25.6571 29.2429 25.6571 36.0571C25.6571 40.4629 27.9571 44.3229 31.4286 46.5143V50.8571C31.4286 51.6086 32.0343 52.2143 32.7857 52.2143H43.2143C43.9657 52.2143 44.5714 51.6086 44.5714 50.8571V46.5143C48.0429 44.3229 50.3429 40.4629 50.3429 36.0571C50.3429 29.2429 44.8143 23.7143 38 23.7143Z"
+                    stroke="#9564F4"
+                    strokeWidth="2.71429"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path d="M32.7857 55.9286H43.2143" stroke="#9564F4" strokeWidth="2.71429" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M34.5714 59.5714H41.4286" stroke="#9564F4" strokeWidth="2.71429" strokeLinecap="round" strokeLinejoin="round" />
+                </g>
+              </svg>}
+                title="Wisdom"
+                description="We make thoughtful decisions." number="02" />
+            </div>
+
+            <div className={`absolute left-[980px] top-[702px] transition-all duration-700 ease-out delay-[400ms] ${
+                              cardsVisible ? "translate-x-0 opacity-100" : "translate-x-[150px] opacity-0"
+                            }`}>
+              <Card icon={<svg xmlns="http://www.w3.org/2000/svg" width="76" height="76" viewBox="0 0 76 76" fill="none">
+                <rect width="76" height="76" rx="29.8571" fill="#9564F4" fillOpacity="0.12" />
+                <path d="M38 26.8571V51.1429" stroke="#9564F4" strokeWidth="2.71429" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M27.4286 31.1429H48.5714" stroke="#9564F4" strokeWidth="2.71429" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M27.4286 31.1429L23.1429 39.7143C23.1429 42.1543 25.0057 44.1429 27.4286 44.1429C29.8514 44.1429 31.7143 42.1543 31.7143 39.7143L27.4286 31.1429Z"
+                  stroke="#9564F4"
+                  strokeWidth="2.71429"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M48.5714 31.1429L44.2857 39.7143C44.2857 42.1543 46.1486 44.1429 48.5714 44.1429C50.9943 44.1429 52.8571 42.1543 52.8571 39.7143L48.5714 31.1429Z"
+                  stroke="#9564F4"
+                  strokeWidth="2.71429"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path d="M32.7143 51.1429H43.2857" stroke="#9564F4" strokeWidth="2.71429" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>}
+                title="Upekkha"
+                description="We hold space with calm and balance." number="03" />
+            </div>
+
+            <div className={`absolute left-[320px] top-[950px] transition-all duration-700 ease-out delay-[600ms] ${
+                              cardsVisible ? "translate-x-0 opacity-100" : "translate-x-[150px] opacity-0"
+                            }`}>
+              <Card icon={<svg xmlns="http://www.w3.org/2000/svg" width="76" height="76" viewBox="0 0 76 76" fill="none">
+                <rect width="76" height="76" rx="29.8571" fill="#9564F4" fillOpacity="0.12" />
+                <path
+                  d="M22.4286 38H29.2857L33.5714 27.4286L42.1429 48.5714L46.4286 38H53.2857"
+                  stroke="#9564F4"
+                  strokeWidth="2.71429"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>}
+                title="Cadence"
+                description="We move with rhythm and intention." number="04" />
+            </div>
           </div>
-
-          <div className="absolute left-[2.5%] md:left-[65px] lg:left-[305px] top-[541px] xl:left-[605px] 2xl:left-[905px]">
-            <Card icon={cardIcon} title="Wisdom" description="We make thoughtful decisions." number="02"/>
-          </div>
-
-          <div className="absolute left-[2.5%] md:left-[20px] lg:left-[40px] top-[702px] xl:left-[705px] 2xl:left-[980px]" >
-            <Card icon={cardIcon} title="Upekkha" description=""  number="03" />
-          </div>
-
-          <div className="absolute left-[2.5%] top-[863px] md:left-[65px] lg:left-[305px] xl:top-[950px] 2xl:left-[320px]">
-            <Card icon={cardIcon} title="Cadence" description="We move with rhythm and intention." number="04" />
-          </div>
-
         </div>
       </section>
-
     </div>
 
   );
