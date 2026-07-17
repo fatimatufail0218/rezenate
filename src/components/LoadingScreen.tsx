@@ -23,7 +23,7 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
 
     const tick = () => {
       const elapsed = Date.now() - start;
-      const next = Math.min(100, Math.floor((elapsed / LOAD_DURATION) * 160));
+      const next = Math.min(100, Math.floor((elapsed / LOAD_DURATION) * 120));
       setPercent(next);
 
       if (next >= 100) {
