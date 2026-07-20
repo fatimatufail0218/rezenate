@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,6 +15,7 @@ const NAV_LINKS = [
 ];
 
 const Navbar = () => {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const FLYIN_DURATION = 600; 
   const PART_GAP = 450;
@@ -77,19 +79,31 @@ const Navbar = () => {
           <Image src="/logo-name.svg" alt="Logo" width={120} height={24} className="pt-1" />
         </div>
 
+        
         {/* Desktop Navigation - sirf lg aur us se bade screens pe */}
-        <ul className="hidden items-center gap-1 lg:flex">
-          {NAV_LINKS.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className="rounded-full px-5 py-2 text-[18px] font-normal text-black transition-colors duration-300 hover:bg-[#9564F4] hover:text-white font-[family-name:var(--font-outfit)]"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="">
+          <ul className="hidden lg:flex items-center gap-1 rounded-full px-[15px] py-[20px]">
+            {NAV_LINKS.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className={`
+                    rounded-full px-5 py-2 text-[18px] font-normal font-outfit
+                    transition-all duration-300
+
+                    ${
+                      pathname === link.href
+                        ? "bg-[#9564F4] text-white"
+                        : "text-black hover:underline hover:underline-offset-6 hover:decoration-[#9564F4]"
+                    }
+                  `}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         {/* Desktop Contact Button - wrapper div se show/hide, Button khud untouched */}
         <div className="hidden lg:block">
@@ -135,14 +149,23 @@ const Navbar = () => {
     >
             <div className="mx-auto flex max-w-[1500px] flex-col gap-2 px-5 pt-4 pb-6">
           {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className="rounded-full px-5 py-3 text-center text-[16px] font-medium text-black transition-colors duration-300 hover:bg-[#9564F4] hover:text-white"
-            >
-              {link.label}
-            </Link>
+            <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className={`
+                    rounded-full px-5 py-2 text-[18px] font-normal font-outfit
+                    transition-all duration-300
+
+                    ${
+                      pathname === link.href
+                        ? "bg-[#9564F4] text-white"
+                        : "text-black hover:underline hover:underline-offset-6 hover:decoration-[#9564F4]"
+                    }
+                  `}
+                >
+                  {link.label}
+                </Link>
+              </li>
           ))}
 
           <Button className="mt-2 w-full font-[family-name:var(--font-outfit)] text-[18px] font-bold hover:border-[#9564F4] hover:bg-[#9564F4] hover:text-white">
