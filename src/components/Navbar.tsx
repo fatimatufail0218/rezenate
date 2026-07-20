@@ -21,7 +21,7 @@ const Navbar = () => {
 
     <nav className="relative w-full py-6 z-50">
       <div
-        className="relative mx-auto flex max-w-[1500px] items-center justify-between px-5"
+        className="relative mx-auto flex max-w-[1440px] items-center justify-between px-5"
         onMouseLeave={() => setIsOpen(false)}
       >
         {/* Logo  */}

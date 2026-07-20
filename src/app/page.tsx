@@ -50,7 +50,7 @@ export default function Home() {
 
         {/* Purple Overlay */}
         <Image
-          src="/hero-overlay.svg"
+          src="/purple-overlay-hero1.svg"
           alt="Hero Overlay"
           width={2270}
           height={864}
@@ -58,11 +58,11 @@ export default function Home() {
           className="
           absolute
           left-1/2
-          top-[490px]
+          top-[550px]
           md:top-[500px]
-          lg:top-[400px]
-          xl:top-[380px]
-          2xl:top-[300px]
+          lg:top-[460px]
+          xl:top-[490px]
+          2xl:top-[510px]
           -translate-x-1/2
           w-[100%]
           h-auto  
@@ -161,26 +161,7 @@ export default function Home() {
         </div>
         {/* -------------------------------------------section 1 bottom gradient--------------------------------------- */}
 
-        <Image
-          src="/blur.svg"
-          alt="Blur Overlay"
-          width={1920}
-          height={1040}
-          className="
-            absolute
-            left-1/2
-            -translate-x-1/2
-            top-[570px]
-            md:top-[690px]
-            lg:top-[640px]
-            xl:top-[690px]
-            2xl:top-[655px]
-            w-full
-            h-auto
-            z-20
-            pointer-events-none
-          "
-        />
+        
       </section>
 
 
@@ -194,7 +175,7 @@ export default function Home() {
         </div>
 
         {/* Heading */}
-        <div className="mx-auto md:w-[650px] lg:w-[860px]">
+        <div className="mx-auto w-[300px] md:w-[650px] lg:w-[860px]">
           <h1 className="mx-auto text-center font-[family-name:var(--font-boldonse)] text-black text-[20px] leading-[160%] font-normal md:text-[28px] lg:text-[40px] lg:leading-[130%]">
             The way we work should reflect the way we live.
           </h1>
@@ -292,7 +273,7 @@ export default function Home() {
         ref={cardsWrapperRef}
         className="
       hidden md:block relative mx-auto
-      -mt-[210px] xl:-mt-[190px]
+      -mt-[210px] xl:-mt-[315px]
       md:w-[768px] md:h-[610px]
       lg:w-[1030px] lg:h-[807px]
       xl:w-[1279px] xl:h-[878px]
@@ -312,11 +293,11 @@ export default function Home() {
             <img
               src="/circle.svg"
               alt=""
-              className="absolute left-[100px] top-0 w-[1140px] h-[1140px]"
+              className="absolute -left-[35px] top-0 w-[1140px] h-[1140px]"
             />
 
             {/* Cards - reference (2xl) fixed positions, ab kabhi nahi badalte */}
-            <div className={`absolute left-[980px] top-[380px] transition-all duration-700 ease-out delay-[0ms] ${
+            <div className={`absolute left-[860px] top-[380px] transition-all duration-700 ease-out delay-[0ms] ${
                             cardsVisible ? "translate-x-0 opacity-100" : "translate-x-[150px] opacity-0"
                             }`}>
               <Card icon={<svg xmlns="http://www.w3.org/2000/svg" width="76" height="76" viewBox="0 0 76 76" fill="none">
@@ -335,7 +316,7 @@ export default function Home() {
                 description="We bring heart to everything we do." number="01" />
             </div>
 
-            <div className={`absolute left-[905px] top-[541px] transition-all duration-700 ease-out delay-[200ms] ${
+            <div className={`absolute left-[785px] top-[541px] transition-all duration-700 ease-out delay-[200ms] ${
                               cardsVisible ? "translate-x-0 opacity-100" : "translate-x-[150px] opacity-0"
                             }`}>
               <Card icon={<svg xmlns="http://www.w3.org/2000/svg" width="76" height="76" viewBox="0 0 76 76" fill="none">
@@ -356,7 +337,7 @@ export default function Home() {
                 description="We make thoughtful decisions." number="02" />
             </div>
 
-            <div className={`absolute left-[980px] top-[702px] transition-all duration-700 ease-out delay-[400ms] ${
+            <div className={`absolute left-[860px] top-[702px] transition-all duration-700 ease-out delay-[400ms] ${
                               cardsVisible ? "translate-x-0 opacity-100" : "translate-x-[150px] opacity-0"
                             }`}>
               <Card icon={<svg xmlns="http://www.w3.org/2000/svg" width="76" height="76" viewBox="0 0 76 76" fill="none">
@@ -383,7 +364,7 @@ export default function Home() {
                 description="We hold space with calm and balance." number="03" />
             </div>
 
-            <div className={`absolute left-[320px] top-[950px] transition-all duration-700 ease-out delay-[600ms] ${
+            <div className={`absolute left-[200px] top-[950px] transition-all duration-700 ease-out delay-[600ms] ${
                               cardsVisible ? "translate-x-0 opacity-100" : "translate-x-[150px] opacity-0"
                             }`}>
               <Card icon={<svg xmlns="http://www.w3.org/2000/svg" width="76" height="76" viewBox="0 0 76 76" fill="none">
